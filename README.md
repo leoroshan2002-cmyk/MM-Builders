@@ -54,6 +54,21 @@ npm run build                # builds frontend/dist
 npm start                    # Express serves the API *and* the built site on PORT
 ```
 
+### Deploying separate services on Render
+For a separate Render API Web Service and frontend Static Site, configure:
+
+* **API Web Service** (Root Directory: `backend`): Build Command `npm install`; Start Command `npm start`.
+  Set `NODE_ENV=production`, `MONGODB_URI`, and `CLIENT_ORIGIN` to the frontend's Render URL
+  (for example, `https://your-site.onrender.com`). Use comma-separated origins if multiple frontends
+  need access; trailing slashes are removed automatically.
+* **Frontend Static Site** (Root Directory: `frontend`): Build Command `npm install && npm run build`;
+  Publish Directory `dist`. Set `VITE_API_URL` to the API service's Render URL, without a trailing
+  slash or `/api` (for example, `https://your-api.onrender.com`).
+
+`CLIENT_ORIGIN` is checked against the browser's exact origin; it is not safe to use `*` for a
+production frontend. Vite reads `VITE_API_URL` during the frontend build, so set it before building
+or redeploy after changing it. Render supplies the API service's `PORT` automatically.
+
 ## API
 
 | Method | URL | Purpose |

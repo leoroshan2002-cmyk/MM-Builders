@@ -23,7 +23,14 @@ app.use(
     frameguard: false,
   })
 );
-app.use(cors({ origin: env.clientOrigin.split(',').map((o) => o.trim()) }));
+const allowedOrigins = new Set(env.clientOrigins);
+app.use(
+  cors({
+    origin(origin, callback) {
+      callback(null, !origin || allowedOrigins.has(origin));
+    },
+  })
+);
 app.use(compression());
 app.use(express.json({ limit: '50kb' }));
 if (env.nodeEnv !== 'test') app.use(morgan(env.nodeEnv === 'production' ? 'combined' : 'dev'));
