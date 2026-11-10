@@ -1,0 +1,265 @@
+/* =====================================================================
+   v16 — unified colour system, seamless backgrounds, per-section
+   animation layers, smaller 3D blueprint cards, desk/mouse polish
+   ===================================================================== */
+@property --ang{syntax:'<angle>';inherits:false;initial-value:0deg}
+:root{
+  --n0:#050c14;--n1:#08131f;--n2:#0c1a29;--n3:#11283a;
+  --teal:#1f8a8a;--teal-d:#14404a;--blue:#1d6fd8;--cy:#7cc4ff;
+  --g1:#fff0c0;--g2:#f6dc8e;--g3:#e8c26a;--g4:#c9962f;--cu:#b9722f;
+  --iv:#08131f;--sand:#0c1a29;--tx:#f1ebdd;--mut:#a9b8c5;--ln:#223648;
+  --gold:#e8c26a;--bz:#d4a13a;
+}
+html{background:#07111b}
+body{background:transparent!important;color:var(--tx)}
+/* one continuous, slowly moving colour field behind the whole page */
+body::before{content:"";position:fixed;inset:-25%;z-index:-1;pointer-events:none;
+  background:
+   radial-gradient(38% 32% at 18% 22%,#1d6fd822,transparent 70%),
+   radial-gradient(42% 36% at 84% 58%,#1f8a8a1f,transparent 70%),
+   radial-gradient(40% 40% at 46% 100%,#1d6fd81a,transparent 70%),
+   linear-gradient(180deg,#08131f,#0a1826 48%,#07111b);
+  animation:v16aurora 38s ease-in-out infinite alternate;will-change:transform}
+@keyframes v16aurora{to{transform:translate3d(5%,-4%,0) rotate(7deg) scale(1.14)}}
+
+/* sections become transparent so colours flow into each other (no seams) */
+main>section{box-shadow:none!important}
+.sv,#concepts,#approach,#contact,.bpS,#about.a2{background:transparent!important}
+.a2-txt,.a2-bot,.a2-side{background:transparent!important}
+.bpS::before{display:none!important}           /* old moving grid -> replaced by canvas grid */
+.bwm{display:none!important}                    /* background logo removed */
+footer{background:linear-gradient(180deg,transparent,#050c14 70%)!important;position:relative;overflow:hidden}
+footer>.w{position:relative;z-index:1}
+main>section>.w{position:relative;z-index:1}
+#about.a2>*:not(.fx):not(svg){position:relative;z-index:1}
+
+/* ---------- animation layer injected into every section ---------- */
+.fx{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;
+  -webkit-mask-image:linear-gradient(180deg,transparent,#000 14%,#000 86%,transparent);
+  mask-image:linear-gradient(180deg,transparent,#000 14%,#000 86%,transparent)}
+.fx.nomask{-webkit-mask-image:none;mask-image:none}
+.fx canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.fx .b{position:absolute;width:58vmax;height:58vmax;border-radius:50%;pointer-events:none;will-change:transform;
+  background:radial-gradient(circle,var(--c,#fff0) 0,transparent 62%)}
+.fx .b1{--c:var(--c1);left:-20vmax;top:-14vmax;animation:v16b1 30s ease-in-out infinite alternate}
+.fx .b2{--c:var(--c2);right:-22vmax;top:22%;animation:v16b2 36s ease-in-out infinite alternate}
+.fx .b3{--c:var(--c3);left:24%;bottom:-32vmax;animation:v16b3 42s ease-in-out infinite alternate}
+@keyframes v16b1{to{transform:translate3d(16vmax,12vmax,0) scale(1.22)}}
+@keyframes v16b2{to{transform:translate3d(-14vmax,-10vmax,0) scale(.82)}}
+@keyframes v16b3{to{transform:translate3d(12vmax,-9vmax,0) scale(1.18)}}
+.fx .r{position:absolute;border-radius:50%;border:1px dashed #e8c26a30;animation:v16spin 70s linear infinite}
+.fx .r::after{content:"";position:absolute;inset:11%;border-radius:50%;border:1px solid #e8c26a1c;border-top-color:#e8c26a66;animation:v16spin 22s linear infinite reverse}
+.fx .r1{width:560px;height:560px;right:-190px;top:6%}
+.fx .r2{width:380px;height:380px;left:-150px;bottom:5%;animation-duration:90s}
+@keyframes v16spin{to{transform:rotate(360deg)}}
+.fx .beam{position:absolute;left:0;right:0;top:-6%;height:120px;
+  background:linear-gradient(180deg,transparent,#7cc4ff14 55%,#7cc4ff40 99%,transparent);
+  border-bottom:1px solid #7cc4ff55;animation:v16beam 11s linear infinite}
+@keyframes v16beam{to{top:106%}}
+.fx .rays{position:absolute;inset:-30%;
+  background:conic-gradient(from 200deg at 92% -8%,transparent 0 10%,#e8c26a14 14%,transparent 19%,#e8c26a0f 24%,transparent 30%,#5ec4c40d 36%,transparent 42%);
+  transform-origin:92% 0;animation:v16rays 26s ease-in-out infinite alternate}
+@keyframes v16rays{from{transform:rotate(-7deg)}to{transform:rotate(9deg)}}
+.hl{position:absolute;left:0;right:0;top:0;height:1px;z-index:2;pointer-events:none;
+  background:linear-gradient(90deg,transparent,#e8c26a66 30%,#fff0c0aa 50%,#e8c26a66 70%,transparent);
+  background-size:200% 100%;animation:v16hl 8s linear infinite}
+@keyframes v16hl{to{background-position:-200% 0}}
+
+/* per-section colour themes */
+#about .fx{--c1:#1d6fd820;--c2:#1d4f7a45;--c3:#1f8a8a22}
+#services .fx{--c1:#1d6fd826;--c2:#1f8a8a30;--c3:#b9722f22}
+#blueprints .fx{--c1:#1d6fd83a;--c2:#7cc4ff1c;--c3:#1f8a8a24}
+#concepts .fx{--c1:#1d6fd828;--c2:#1f8a8a2a;--c3:#14404a55}
+#approach .fx{--c1:#1d6fd82c;--c2:#1f8a8a2a;--c3:#1d6fd822}
+#contact .fx{--c1:#e8c26a2a;--c2:#1f8a8a30;--c3:#c9962f1e}
+
+/* ---------- headings: shimmering gold ---------- */
+.sh h2 em,.bph0 h2 em,h2.t em,.git h3 em{
+  background:linear-gradient(100deg,#c9962f 0,#f6dc8e 45%,#fff0c0 50%,#f6dc8e 55%,#c9962f 100%);
+  background-size:230% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
+  animation:a2sh 7s linear infinite}
+.ey{background:linear-gradient(90deg,#c9962f,#f6dc8e,#c9962f);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:eyIn 1s var(--e) both,a2sh 6s linear infinite}
+
+/* ---------- orbiting gold light on cards ---------- */
+.orb{position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;z-index:6;
+  background:conic-gradient(from var(--ang),transparent 0 58%,#e8c26a99 76%,#fff0c0 84%,transparent 92%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);
+  opacity:.55;transition:opacity .4s;animation:v16orb 6s linear infinite}
+.vc:hover>.orb,.bpb:hover>.orb,.band:hover>.orb,.git:hover>.orb{opacity:1}
+.vc:nth-child(2n)>.orb,.bpc:nth-child(2n) .orb{animation-delay:-2s}.vc:nth-child(3n)>.orb,.bpc:nth-child(3n) .orb{animation-delay:-4s}
+@keyframes v16orb{to{--ang:360deg}}
+.bpb{position:relative}.git{position:relative}
+
+/* ---------- Services cards ---------- */
+.vc{background:linear-gradient(115deg,#0a1724f2 40%,#0e2233f2)!important;border-color:#e8c26a2b!important}
+.vc .n{background:linear-gradient(100deg,#c9962f,#fff0c0 50%,#c9962f);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:a2sh 6s linear infinite}
+.vc svg.ic{animation:v16bob 4.5s ease-in-out infinite;filter:drop-shadow(0 0 6px #e8c26a66)}
+@keyframes v16bob{50%{transform:translateY(-4px) rotate(-3deg)}}
+.vc .im::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(105deg,transparent 38%,#ffffff2e 50%,transparent 62%);transform:translateX(-140%);animation:v16sweep 7s ease-in-out infinite}
+.vc:nth-child(2n) .im::after{animation-delay:-2.3s}.vc:nth-child(3n) .im::after{animation-delay:-4.6s}
+@keyframes v16sweep{0%,55%{transform:translateX(-140%)}100%{transform:translateX(140%)}}
+.vc .im img{animation:v16kb 16s ease-in-out infinite alternate}
+@keyframes v16kb{from{object-position:50% 50%}to{object-position:62% 46%}}
+/* 03 & 06 — fixed: the old ".bl" image class clashed with the CTA list class */
+.vc .im.bl3{clip-path:polygon(0 0,100% 0,100% 100%,var(--cut,12%) 100%);width:56%;border-radius:0}
+.vc .im.bl3 img{object-position:42% 50%}
+
+/* ---------- 3D blueprint cards: compact, 4 per row ---------- */
+.bph0{margin-bottom:28px}
+.bpg4{grid-template-columns:repeat(4,1fr)!important;gap:16px!important}
+.bpb{border-radius:14px;background:linear-gradient(180deg,#0a1a2c,#0c2236)!important;border-color:#7cc4ff30!important}
+.bpt{aspect-ratio:16/10!important}
+.bpp{inset:6% 6%!important;animation:v16bpi 5s ease-in-out infinite alternate}
+@keyframes v16bpi{from{translate:0 0}to{translate:0 -4px}}
+.bpx{padding:14px 14px 16px!important}
+.bpn{font-size:22px!important}.bph{font-size:18px!important;margin-top:4px!important}
+.bpsb{font-size:9.5px!important;letter-spacing:.08em!important;margin-top:4px!important;line-height:1.35}
+.bpd{font-size:12px!important;line-height:1.5!important;margin-top:8px!important;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.bpg{gap:5px!important;margin-top:10px!important}.bpg em{font-size:10px!important;padding:3px 8px!important}
+.bpgo{padding:8px 15px!important;font-size:12px!important;margin-top:12px!important}
+.bp3{font-size:10px!important;padding:4px 9px!important;right:8px!important;top:8px!important}
+@media(max-width:1100px){.bpg4{grid-template-columns:repeat(2,1fr)!important}}
+@media(max-width:560px){.bpg4{grid-template-columns:1fr!important;gap:14px!important}.bpt{aspect-ratio:16/10!important}}
+
+/* ---------- Concepts ---------- */
+.pc .pcv{box-shadow:0 14px 34px -16px #000c,0 0 0 1px #e8c26a1f}
+.pc .pcv:hover{box-shadow:0 22px 48px -14px #e8c26a55,0 0 0 1px #e8c26a88}
+.fl button.on{background:linear-gradient(135deg,#f6dc8e,#c9962f)!important;color:#0b1622!important;border-color:#e8c26a!important}
+.band{border:1px solid #e8c26a33}
+
+/* ---------- Approach ---------- */
+.stp::before{background:repeating-linear-gradient(180deg,#e8c26a44 0 6px,transparent 6px 12px)!important;animation:v16dash 1.4s linear infinite}
+@keyframes v16dash{to{background-position:0 12px}}
+.stp .fl2{box-shadow:0 0 10px #e8c26a99;width:2px!important;margin-left:-.5px}
+.stp .fl2::after{content:"";position:absolute;left:-5px;bottom:-5px;width:12px;height:12px;border-radius:50%;
+  background:radial-gradient(circle,#fff 0,#f6dc8e 40%,#e8c26a00 72%);box-shadow:0 0 16px 5px #e8c26acc;animation:v16head 1.4s ease-in-out infinite}
+@keyframes v16head{50%{transform:scale(1.45)}}
+.st i{position:relative}
+.st i::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:1px dashed #e8c26a88;animation:v16spin 12s linear infinite}
+.why svg{animation:v16bob 5s ease-in-out infinite}
+.why>div:nth-child(2n) svg{animation-delay:-1.2s}.why>div:nth-child(3n) svg{animation-delay:-2.4s}
+.pr .slot{box-shadow:0 30px 60px -28px #000c,0 0 40px -10px #e8c26a44}
+
+/* ---------- Contact / footer ---------- */
+.git{border:1px solid #e8c26a44}
+.soc a{position:relative}
+footer .fbrand img{filter:drop-shadow(0 0 12px #e8c26a55)}
+footer nav a{transition:color .3s,transform .3s var(--e)}footer nav a:hover{color:#f6dc8e;transform:translateY(-3px)}
+
+/* ---------- Intro: desk, mouse, lamp, screen ---------- */
+#s2::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:radial-gradient(60% 50% at 50% 55%,transparent 55%,#02060b99 100%),
+   radial-gradient(42% 36% at 18% 14%,#e8c26a24,transparent 70%),radial-gradient(42% 36% at 86% 92%,#1f8a8a2e,transparent 70%);
+  animation:v16vig 6s ease-in-out infinite alternate}
+@keyframes v16vig{from{opacity:.7}to{opacity:1}}
+/* pulse ring now matches the (smaller) Enter button exactly */
+.ring{left:43.7%!important;top:53.9%!important;width:10.2%!important;height:4.1%!important}
+#dbg{animation:v16dbg 16s ease-in-out infinite alternate}
+@keyframes v16dbg{to{transform:scale(1.12) translate3d(-2%,1.5%,0)}}
+#idust{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none}
+#dk .ms-sh,#dk .ms-spot,#dk .ms-gl,#dk .lamp-gl,#dk .scr-sw,#dk .scur,#dk .sclk{position:absolute;pointer-events:none}
+/* soft contact shadow so the mouse sits ON the desk */
+#dk .ms-sh{left:74.4%;top:89.9%;width:13.2%;height:3.1%;z-index:2;mix-blend-mode:multiply;
+  background:radial-gradient(closest-side,#000000cc,#0000008a 55%,transparent);filter:blur(.25cqw);animation:v16msh 7s ease-in-out infinite}
+@keyframes v16msh{0%,40%,70%,100%{transform:scale(1);opacity:.9}52%{transform:scale(.93,.8);opacity:1}}
+/* warm pool of lamp light on mouse + pad */
+#dk .ms-spot{left:69%;top:80.5%;width:24%;height:15%;z-index:2;mix-blend-mode:screen;
+  background:radial-gradient(closest-side,#ffd9962e,#ffd99614 60%,transparent);animation:v16spot 5s ease-in-out infinite alternate}
+@keyframes v16spot{from{opacity:.55}to{opacity:1}}
+/* click flash on the mouse body, in sync with the on-screen cursor */
+#dk .ms-gl{left:75.4%;top:84.6%;width:9.6%;height:6.4%;z-index:3;border-radius:50%;mix-blend-mode:screen;opacity:0;
+  background:radial-gradient(closest-side at 42% 32%,#fff8e2d9,#fff0c455 55%,transparent 75%);animation:v16msg 7s ease-in-out infinite}
+@keyframes v16msg{0%,48%,64%,100%{opacity:0}53%{opacity:.95}58%{opacity:.25}}
+/* lamp glow breathing */
+#dk .lamp-gl{left:68%;top:-6%;width:24%;height:30%;z-index:2;mix-blend-mode:screen;
+  background:radial-gradient(closest-side at 50% 38%,#ffd68a55,#ffd68a1a 55%,transparent);animation:v16lamp 4.2s ease-in-out infinite alternate}
+@keyframes v16lamp{from{opacity:.55;transform:scale(.96)}to{opacity:1;transform:scale(1.06)}}
+/* glass sheen crossing the monitor */
+#dk .scr-sw{left:21.8%;top:14.4%;width:56.4%;height:51.8%;overflow:hidden;z-index:2}
+#dk .scr-sw::before{content:"";position:absolute;top:-10%;bottom:-10%;width:26%;left:-40%;transform:skewX(-18deg);
+  background:linear-gradient(90deg,transparent,#ffffff1c,transparent);animation:v16sw 6.5s ease-in-out infinite}
+@keyframes v16sw{0%,30%{left:-40%}100%{left:130%}}
+/* on-screen cursor gliding to "Click to enter" and clicking */
+#dk .scur{left:64%;top:26%;width:2.2cqw;height:2.2cqw;z-index:4;opacity:0;
+  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M3 2l7.5 19 2.6-7.8L21 10.6z' fill='white' stroke='black' stroke-width='1.4' stroke-linejoin='round'/></svg>") no-repeat center/contain;
+  filter:drop-shadow(0 .2cqw .35cqw #000a);animation:v16cur 7s cubic-bezier(.45,.05,.3,1) infinite}
+@keyframes v16cur{
+  0%{left:66%;top:24%;opacity:0;transform:scale(1)}
+  8%{opacity:1}
+  46%{left:50.4%;top:55.4%;transform:scale(1)}
+  51%{transform:scale(.8)}
+  56%{transform:scale(1)}
+  86%{left:50.4%;top:55.4%;opacity:1}
+  96%,100%{left:58%;top:40%;opacity:0}}
+#dk .sclk{left:49.4%;top:55.2%;width:3cqw;height:3cqw;margin:-1.5cqw 0 0 0;z-index:4;border-radius:50%;opacity:0;
+  border:.2cqw solid #f6dc8e;animation:v16clk 7s ease-out infinite}
+@keyframes v16clk{0%,50%{opacity:0;transform:scale(.2)}52%{opacity:.95}66%,100%{opacity:0;transform:scale(2.2)}}
+#dk.go .scur,#dk.go .sclk,#dk.go .ms-gl{display:none}
+
+@media(max-width:700px){
+  .fx .r1{width:340px;height:340px;right:-170px}.fx .r2{display:none}
+  .vc .im.bl3{width:54%}
+}
+@media(prefers-reduced-motion:reduce){
+  body::before,.fx .b,.fx .r,.fx .beam,.fx .rays,.hl,.orb,#dk .scur,#dk .sclk,#dk .ms-gl,#dk .lamp-gl,#dk .scr-sw::before{animation:none!important}
+  .fx canvas{display:none}
+}
+
+/* equal-height compact blueprint cards, button pinned to the bottom */
+.bpc{display:flex}
+.bpb{display:flex!important;flex-direction:column;height:100%}
+.bpx{flex:1;display:flex!important;flex-direction:column}
+.bpg{margin-bottom:14px}
+.bpgo{margin-top:auto!important;align-self:flex-start}
+/* hero fireflies sit above the photo, below the text */
+.hero>.fx{z-index:1}
+.hero>.w,.hero>.dots,.hero>.sd{position:relative;z-index:3}
+.hero>.dots,.hero>.sd{position:absolute}
+
+/* ===== v17 fixes ===== */
+/* Concept Designs filter buttons: readable text */
+.fl button{color:#eadfc6;background:#12283a}
+.fl button:hover{color:#0b1622;background:#e8c26a;border-color:#e8c26a}
+.fl button.on{color:#0b1622!important}
+
+/* Our Approach: bright, clearly visible step numbers */
+.stp::before,.stp .fl2{left:23px!important}
+.st i{width:48px;height:48px;font:700 17px var(--sans);letter-spacing:.02em;color:#0b1622!important;
+  background:radial-gradient(circle at 35% 30%,#fffbe6,#ffe08a 52%,#f5b63c)!important;border:2px solid #fff4c8;
+  text-shadow:0 1px 0 #fff9;box-shadow:0 0 0 0 #ffe08a88,0 0 22px 3px #ffe08aaa;animation:v17num 2.8s ease-in-out infinite}
+.st:nth-child(3) i{animation-delay:-.5s}.st:nth-child(4) i{animation-delay:-1s}.st:nth-child(5) i{animation-delay:-1.5s}.st:nth-child(6) i{animation-delay:-2s}
+@keyframes v17num{50%{box-shadow:0 0 0 11px #ffe08a00,0 0 36px 9px #ffeaa8cc}}
+.st h3{color:#fff}.st p{color:#b9c8d3}
+
+/* Why Choose Us: every logo sits in its own box */
+.why{gap:20px}
+.why>div{flex-direction:column;align-items:flex-start;gap:16px;padding:24px 22px!important;border:1px solid #e8c26a55;border-radius:16px;
+  background:linear-gradient(160deg,#10263a,#0b1825);box-shadow:0 18px 40px -22px #000d;position:relative;z-index:1}
+.why>div:hover{background:linear-gradient(160deg,#16314a,#0d1d2d)!important;border-color:#e8c26acc}
+.why svg{width:64px;height:64px;padding:14px;border-radius:16px;background:linear-gradient(135deg,#fff0b8,#e8b73e 60%,#c9962f);
+  stroke:#0b1622!important;stroke-width:2.7;stroke-linecap:round;stroke-linejoin:round;fill:none;box-shadow:0 10px 22px -8px #e8c26a88,inset 0 0 0 1px #fff7}
+.why b{font-size:16px;color:#fff}.why p{color:#b9c8d3;font-size:13px}
+
+/* Let's Build Your Dream Space: blueprint drafting (top) + rising skyline (bottom) */
+.band>div:not(.slot){padding:90px 48px 84px!important}
+.band>canvas.bf{position:absolute;left:0;top:0;z-index:1;pointer-events:none}
+@media(max-width:940px){.band>div:not(.slot){padding:84px 24px 80px!important}}
+
+/* Click-to-continue page: cinematic zoom */
+#s4:not(.off) #vid{filter:blur(2px) brightness(.82) saturate(1.15);animation:v18in 3.4s cubic-bezier(.16,.8,.2,1) both,kb 26s 3.4s ease-in-out infinite alternate}
+@keyframes v18in{from{transform:scale(1.75);filter:blur(14px) brightness(.4)}to{transform:scale(1.06);filter:blur(2px) brightness(.82) saturate(1.15)}}
+#s4 small.s4i{transform:translateY(-18px) scale(1.2);letter-spacing:.9em}
+#s4:not(.off) small.s4i{transform:none;letter-spacing:.4em;transition:all 2.2s .2s var(--e)}
+#s4 h2.s4i{transform:scale(1.45);letter-spacing:.14em;filter:blur(16px)}
+#s4:not(.off) h2.s4i{transform:none;letter-spacing:.01em;filter:none;transition:transform 2.4s .5s var(--e),letter-spacing 2.6s .5s var(--e),filter 1.8s .5s,opacity 1.6s .5s}
+#s4 p.s4i{transform:translateY(30px) scale(.94)}
+#s4:not(.off) p.s4i{transform:none;transition:all 1.6s 1.5s var(--e)}
+#s4::after{content:"";position:absolute;inset:3.4vmin;border:1px solid #e3b85877;z-index:2;pointer-events:none;opacity:0;transform:scale(1.18);transition:opacity 1.6s .8s,transform 2.4s .8s var(--e)}
+#s4:not(.off)::after{opacity:1;transform:none}
+.vs::after{content:"";position:absolute;top:0;bottom:0;left:-40%;width:30%;transform:skewX(-18deg);background:linear-gradient(90deg,transparent,#ffffff22,transparent);opacity:0}
+#s4:not(.off) .vs::after{animation:v18sw 2.6s 1.2s ease-in-out 1 both}
+@keyframes v18sw{0%{left:-40%;opacity:1}100%{left:130%;opacity:1}}
+/* click: zoom through the screen into the website */
+#s4.zin{transform:scale(1.9);opacity:0;transition:transform .85s cubic-bezier(.55,0,.9,.35),opacity .85s ease-in!important}

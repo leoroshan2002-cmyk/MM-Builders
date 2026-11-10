@@ -1,0 +1,66 @@
+:root{--iv:#0b1622;--sand:#0f2030;--esp:#060d14;--tx:#e8eef3;--mut:#a3b3c0;--ln:#223648;--gold:#e8c26a;--bz:#d4a13a}
+body{background:#0b1622;color:#e8eef3}
+.brand,.brand *,.fbrand,.fbrand *{text-decoration:none!important}
+/* enter button smaller */
+#enter{left:43.7%;top:53.9%;width:10.2%;height:4.1%;font-size:.66cqw;letter-spacing:.16em;gap:.5cqw;border-width:1px}
+#enter b{font-size:.95cqw}
+/* ===== loader with counter ===== */
+#s1{background:radial-gradient(circle at 50% 42%,#14404a 0,#0b1d2b 45%,#050b11 100%);gap:0}
+#s1 .ld{position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center}
+#s1 .ld-logo{position:relative;width:min(260px,56vw);aspect-ratio:1221/1288}
+#s1 .ld-logo img{position:absolute;inset:0;width:100%;height:100%;animation:none;filter:none}
+#s1 .ld-logo .g{filter:grayscale(1) brightness(.5) contrast(.9)!important;opacity:.45}
+#s1 .ld-logo .c{clip-path:inset(100% 0 0 0);filter:none!important}
+#s1 .ld-logo::after{content:"";position:absolute;left:-10%;right:-10%;top:var(--y,100%);height:2px;background:linear-gradient(90deg,transparent,#fff3c4,transparent);box-shadow:0 0 18px 4px #e8c26aaa;opacity:var(--o,1)}
+#s1 .ld-num{display:flex;align-items:flex-start;justify-content:center;font:300 clamp(54px,9vw,92px)/1 var(--serif);color:#f6dc8e;letter-spacing:.02em;font-variant-numeric:tabular-nums;text-shadow:0 0 30px #e8c26a55;min-width:3.2ch}
+#s1 .ld-num em{font:500 .32em var(--sans);font-style:normal;margin:.35em 0 0 6px;color:#e8c26a}
+#s1 .ld-bar{width:min(320px,70vw);height:3px;background:#ffffff1a;border-radius:9px;overflow:hidden}
+#s1 .ld-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#c9962f,#f6dc8e,#fff3c4);box-shadow:0 0 12px #e8c26a}
+#s1 p{margin:6px 0 0;font:500 13px var(--sans);letter-spacing:.14em;color:#c8d4de;text-transform:uppercase}
+#s1 small{letter-spacing:.5em;font-size:10px;color:#e8c26a;margin-top:2px;animation:blink 1.4s infinite}
+@keyframes blink{50%{opacity:.35}}
+#s1::before,#s1::after{z-index:1}
+/* logo reveal */
+@keyframes logoRev{0%{clip-path:inset(0 100% 0 0);filter:brightness(2.4) blur(5px);transform:scale(.8) rotate(-4deg);opacity:0}55%{filter:brightness(1.7) blur(0)}100%{clip-path:inset(0 0 0 0);filter:drop-shadow(0 0 10px #e8c26a55);transform:none;opacity:1}}
+.brand img.lr,.fbrand.lr img{animation:logoRev 1.5s var(--e) both}
+.fbrand:not(.lr) img{opacity:0}
+.brand{position:relative;overflow:hidden;border-radius:10px}
+.brand::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,#fff6d055,transparent);transform:skewX(-20deg);animation:shine 6s 3s ease-in-out infinite;pointer-events:none}
+#cur img{animation:none}#cur.in img{animation:logoRev 1s .15s var(--e) both}
+/* section colour */
+main>section{position:relative;box-shadow:inset 0 1px 0 #e8c26a26}
+.sv{background:radial-gradient(circle at 6% 0,#c9962f26,transparent 42%),radial-gradient(circle at 100% 100%,#1f8a8a26,transparent 45%),#0d1c2a!important}
+#concepts{background:linear-gradient(180deg,#0b1622,#0f2b36 70%,#0d2230)}
+#approach{background:radial-gradient(circle at 92% 12%,#c9962f1f,transparent 40%),radial-gradient(circle at 0 90%,#1f8a8a22,transparent 45%),#0b1622;padding-top:70px!important}
+#contact{background:#0b1622;padding-bottom:90px!important}
+.bpS{background:linear-gradient(180deg,#0a1b30,#0c2540 55%,#0a1b30)!important;overflow:hidden}
+.a2-av svg rect{fill:#17344b}.a2-av svg *:not(rect){fill:#d9b25a}
+.why svg{stroke:#e8c26a}
+/* blueprint animation */
+.bpS::before{content:"";position:absolute;inset:-60px;pointer-events:none;background-image:linear-gradient(#7cc4ff14 1px,transparent 1px),linear-gradient(90deg,#7cc4ff14 1px,transparent 1px);background-size:42px 42px;animation:gridMove 18s linear infinite;-webkit-mask-image:radial-gradient(circle at 50% 40%,#000,transparent 75%);mask-image:radial-gradient(circle at 50% 40%,#000,transparent 75%)}
+@keyframes gridMove{to{background-position:42px 42px}}
+.bpS>.w{position:relative;z-index:2}
+.bp-draw{position:absolute;right:3%;top:26px;width:min(430px,38vw);z-index:1;opacity:.55;pointer-events:none}
+.bp-draw *{fill:none;stroke:#7cc4ff;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:bpDraw 7s ease-in-out infinite alternate}
+.bp-draw .d2 *,.bp-draw .d2{animation-delay:1.2s;stroke:#e8c26a}
+.bp-draw text{fill:#7cc4ff;stroke:none;font:600 9px var(--sans);letter-spacing:.2em;stroke-dasharray:none;animation:bpFade 7s ease-in-out infinite alternate}
+@keyframes bpDraw{0%{stroke-dashoffset:1}70%,100%{stroke-dashoffset:0}}@keyframes bpFade{0%,50%{opacity:0}100%{opacity:1}}
+.bpt .scan{position:absolute;left:0;right:0;top:-35%;height:35%;z-index:4;pointer-events:none;background:linear-gradient(180deg,transparent,#7cc4ff30,transparent);border-bottom:1px solid #7cc4ff77;animation:scanY 4.2s linear infinite}
+.bpt:nth-child(2) .scan{animation-delay:-1s}.bpt:nth-child(3) .scan{animation-delay:-2s}.bpt:nth-child(4) .scan{animation-delay:-3s}
+@keyframes scanY{to{top:110%}}
+.bpt{transition:transform .5s var(--e),box-shadow .5s,border-color .4s}.bpt:hover{transform:translateY(-6px);box-shadow:0 22px 44px -18px #1d6fd8aa,0 0 0 1px #7cc4ff88}
+.bpe::before{content:"";display:inline-block;width:28px;height:1px;background:currentColor;vertical-align:middle;margin-right:10px;animation:grow 2.4s var(--e) infinite alternate}
+@keyframes grow{from{width:6px}to{width:44px}}
+/* extra reveal polish */
+.t,.ey{position:relative}
+.ey{animation:eyIn 1s var(--e) both}
+@keyframes eyIn{from{letter-spacing:.6em;opacity:0}}
+.why>div{transition:transform .5s var(--e),background .4s;border-radius:14px;padding:14px}.why>div:hover{transform:translateY(-6px);background:#ffffff0a}
+.st{transition:transform .4s var(--e)}.st:hover{transform:translateX(8px)}
+.st i{box-shadow:0 0 0 0 #e8c26a66;animation:ring 3s infinite}@keyframes ring{70%{box-shadow:0 0 0 12px #e8c26a00}}
+@media(max-width:940px){.bp-draw{opacity:.25;width:60vw}}
+@media(prefers-reduced-motion:reduce){.bp-draw *{stroke-dashoffset:0}#s1 .ld-logo .c{clip-path:none}}
+#contact{padding-top:40px!important}
+.git{background:linear-gradient(120deg,#102a3d,#14404a 75%)!important;border:1px solid #e8c26a44;box-shadow:0 30px 70px -30px #000c,0 0 0 1px #0003}
+.git p a{color:#f2cd7a;text-decoration:none;border-bottom:1px dashed #e8c26a88}.git p a:hover{color:#fff}
+.band{border:1px solid #e8c26a33}

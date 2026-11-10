@@ -1,0 +1,17 @@
+/*
+  Global styles.
+  The original MM Builders stylesheet is kept as-is (so the design is identical) and split by purpose.
+  The ORDER matters – later files intentionally refine earlier ones:
+    base → sections → refinements → motion → theme → effects
+  Tailwind utilities are loaded last and can be used anywhere in the JSX.
+*/
+@import './styles/base.css';
+@import './styles/sections.css';
+@import './styles/refinements.css';
+@import './styles/motion.css';
+@import './styles/theme.css';
+@import './styles/effects.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
