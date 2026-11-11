@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import mongoose from 'mongoose';
 import siteRoutes from './siteRoutes.js';
 import serviceRoutes from './serviceRoutes.js';
 import conceptRoutes from './conceptRoutes.js';
@@ -9,6 +10,12 @@ import enquiryRoutes from './enquiryRoutes.js';
 const router = Router();
 
 router.get('/health', (req, res) => res.json({ success: true, status: 'ok', time: new Date().toISOString() }));
+router.use((req, res, next) => {
+  if (mongoose.connection.readyState !== 1) {
+    return res.status(503).json({ success: false, message: 'Database is unavailable' });
+  }
+  next();
+});
 router.use('/site', siteRoutes);
 router.use('/services', serviceRoutes);
 router.use('/concepts', conceptRoutes);
