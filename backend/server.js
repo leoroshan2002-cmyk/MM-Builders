@@ -1,10 +1,12 @@
 import 'dotenv/config';
 import app from './src/app.js';
 import connectDB from './src/config/db.js';
-import env from './src/config/env.js';
 
-app.listen(env.port, () => {
-  console.log(`✔ MM Builders API running on port ${env.port} (${env.nodeEnv})`);
+const port = Number(process.env.PORT) || 5000;
+const nodeEnv = process.env.NODE_ENV || 'development';
+
+app.listen(port, () => {
+  console.log(`✔ MM Builders API running on port ${port} (${nodeEnv})`);
 });
 
 connectDB().catch((error) => {

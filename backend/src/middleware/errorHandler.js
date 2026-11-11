@@ -1,5 +1,3 @@
-import env from '../config/env.js';
-
 // eslint-disable-next-line no-unused-vars
 export default function errorHandler(err, req, res, next) {
   let status = err.status || 500;
@@ -24,6 +22,8 @@ export default function errorHandler(err, req, res, next) {
     success: false,
     message,
     ...(details ? { details } : {}),
-    ...(env.nodeEnv !== 'production' && status >= 500 ? { stack: err.stack } : {}),
+    ...((process.env.NODE_ENV || 'development') !== 'production' && status >= 500
+      ? { stack: err.stack }
+      : {}),
   });
 }

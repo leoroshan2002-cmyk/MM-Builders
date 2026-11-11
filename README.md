@@ -9,7 +9,7 @@ mm-builders/
 │   ├── server.js            starts DB + server
 │   └── src/
 │       ├── app.js           middleware + routes
-│       ├── config/          env.js, db.js
+│       ├── config/          db.js
 │       ├── models/          Service, Concept, Blueprint, SiteSetting, Enquiry   (M)
 │       ├── controllers/     one file per resource                                (C)
 │       ├── routes/          URL → controller                                     (the "V" is JSON)
