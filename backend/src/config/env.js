@@ -1,6 +1,6 @@
 // One place to read environment variables, with safe defaults for local work.
 const clientOrigins = [...new Set(
-  (process.env.CLIENT_ORIGIN || 'mm-builders-seven.vercel.app')
+  (process.env.CLIENT_ORIGIN || 'https://mm-builders-seven.vercel.app')
     .split(',')
     .map((value) => {
       const origin = value.trim();
